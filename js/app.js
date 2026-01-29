@@ -1,8 +1,8 @@
+```js
 // Valentine App JavaScript
 // Handles passphrase gate, countdown logic, navigation, and interactive elements
 
 const DEV_MODE = false; // 🔧 set to false before deployment
-
 
 document.addEventListener('DOMContentLoaded', function() {
     // Configuration
@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initApp();
 
     function initApp() {
-        // Check if passphrase was already entered (session-based, no storage)
         if (sessionStorage.getItem('passphraseEntered')) {
             showApp();
         } else {
@@ -69,14 +68,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function checkDateAndShowContent() {
         const now = new Date();
-        const nowSAST = new Date(now.toLocaleString("en-US", {timeZone: "Africa/Johannesburg"}));
+        const nowSAST = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Johannesburg" }));
 
         if (nowSAST >= VALENTINE_DATE) {
-            // Valentine's Day or later - show full app
             app.classList.remove('hidden');
             setupWelcome();
         } else {
-            // Before Valentine's Day - show countdown
             countdown.classList.remove('hidden');
             startCountdown();
         }
@@ -85,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function startCountdown() {
         function updateCountdown() {
             const now = new Date();
-            const nowSAST = new Date(now.toLocaleString("en-US", {timeZone: "Africa/Johannesburg"}));
+            const nowSAST = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Johannesburg" }));
             let timeLeft = VALENTINE_DATE - nowSAST;
 
             if (DEV_MODE) {
@@ -93,15 +90,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             if (timeLeft <= 0) {
-                // Time's up! Show the app
                 if (!DEV_MODE) {
                     countdown.classList.add('hidden');
                 }
                 app.classList.remove('hidden');
                 setupWelcome();
-                if (!DEV_MODE) {
-                    return;
-                }
+                if (!DEV_MODE) return;
             }
 
             const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
@@ -116,9 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         updateCountdown();
-        setInterval(updateCountdown, 1000); // Update every second
-
-        // Setup limited preview functionality
+        setInterval(updateCountdown, 1000);
         setupLimitedPreview();
     }
 
@@ -127,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const photoPreview = document.getElementById('photo-preview');
         const showAudioBtn = document.getElementById('show-audio');
         const audioPreview = document.getElementById('audio-preview');
+        const audio = audioPreview ? audioPreview.querySelector('audio') : null;
         const showLetterBtn = document.getElementById('show-letter');
         const letterPreview = document.getElementById('letter-preview');
 
@@ -136,6 +129,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         showAudioBtn.addEventListener('click', () => {
             togglePreview(audioPreview);
+
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(() => {});
+            }
         });
 
         showLetterBtn.addEventListener('click', () => {
@@ -145,32 +143,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function togglePreview(previewElement) {
         const isHidden = previewElement.classList.contains('hidden');
-        // Hide all previews first
+
         document.querySelectorAll('.preview-content').forEach(el => {
             el.classList.add('hidden');
+
+            const aud = el.querySelector('audio');
+            if (aud) {
+                aud.pause();
+                aud.currentTime = 0;
+            }
         });
-        // Show the clicked one if it was hidden
+
         if (isHidden) {
             previewElement.classList.remove('hidden');
         }
     }
 
     function setupWelcome() {
-            beginBtn.addEventListener('click', function () {
+        beginBtn.addEventListener('click', function () {
             window.location.href = "nav.html";
-    });
-}
+        });
+    }
 
     function showSection(sectionName) {
-        // Hide all sections
         document.querySelectorAll('.section').forEach(section => {
             section.classList.add('hidden');
         });
 
-        // Show selected section
         document.getElementById(sectionName).classList.remove('hidden');
 
-        // Update nav buttons
         navBtns.forEach(btn => {
             btn.classList.remove('active');
             if (btn.dataset.section === sectionName) {
@@ -179,12 +180,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Navigation event listeners
     navBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             showSection(this.dataset.section);
         });
-    });
+    }
 
     function loadContent() {
         loadTimeline();
@@ -197,38 +197,19 @@ document.addEventListener('DOMContentLoaded', function() {
     function loadTimeline() {
         const timelineContainer = document.querySelector('.timeline-container');
 
-        // Sample memories - replace with your actual memories
         const memories = [
-            {
-                type: 'image',
-                src: 'assets/images/memory1.jpg',
-                date: 'January 15, 2024',
-                caption: 'Our first adventure together...'
-            },
-            {
-                type: 'video',
-                src: 'assets/video/memory1.mp4',
-                date: 'February 14, 2024',
-                caption: 'Happy Valentine\'s Day, my love!'
-            },
-            {
-                type: 'image',
-                src: 'assets/images/memory2.jpg',
-                date: 'March 10, 2024',
-                caption: 'A beautiful sunset we shared...'
-            }
+            { type: 'image', src: 'assets/images/memory1.jpg', date: 'January 15, 2024', caption: 'Our first adventure together...' },
+            { type: 'video', src: 'assets/video/memory1.mp4', date: 'February 14, 2024', caption: 'Happy Valentine\'s Day, my love!' },
+            { type: 'image', src: 'assets/images/memory2.jpg', date: 'March 10, 2024', caption: 'A beautiful sunset we shared...' }
         ];
 
         memories.forEach(memory => {
             const card = document.createElement('div');
             card.className = 'memory-card';
 
-            let mediaElement;
-            if (memory.type === 'image') {
-                mediaElement = `<img src="${memory.src}" alt="Memory" loading="lazy">`;
-            } else {
-                mediaElement = `<video controls><source src="${memory.src}" type="video/mp4"></video>`;
-            }
+            const mediaElement = memory.type === 'image'
+                ? `<img src="${memory.src}" alt="Memory" loading="lazy">`
+                : `<video controls playsinline><source src="${memory.src}" type="video/mp4"></video>`;
 
             card.innerHTML = `
                 ${mediaElement}
@@ -245,40 +226,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function loadLetters() {
         const lettersContainer = document.querySelector('.letters-container');
 
-        // Sample letters - replace with your actual letters
         const letters = [
-            {
-                content: `My Dearest Love,
-
-Every moment with you feels like a beautiful dream I never want to wake from. Your smile lights up my world, and your laughter is the sweetest music to my ears.
-
-Forever yours,
-With all my heart`
-            },
-            {
-                content: `My Love,
-
-In your eyes, I see my future. In your arms, I find my home. In your heart, I discover true love.
-
-Eternally yours`
-            }
+            { content: `My Dearest Love,\n\nEvery moment with you feels like a beautiful dream I never want to wake from.\n\nForever yours,\nWith all my heart` },
+            { content: `My Love,\n\nIn your eyes, I see my future.\n\nEternally yours` }
         ];
 
-        letters.forEach((letter, index) => {
+        letters.forEach(letter => {
             const card = document.createElement('div');
             card.className = 'letter-card';
-            card.innerHTML = `
-                <div class="letter-content">${letter.content}</div>
-            `;
-
-            card.addEventListener('click', function() {
-                // Simple envelope animation effect
-                this.style.transform = 'scale(1.02)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 200);
-            });
-
+            card.innerHTML = `<div class="letter-content">${letter.content}</div>`;
             lettersContainer.appendChild(card);
         });
     }
@@ -286,29 +242,20 @@ Eternally yours`
     function loadMusic() {
         const musicContainer = document.querySelector('.music-container');
 
-        // Sample songs - replace with your actual songs
         const songs = [
-            {
-                src: 'assets/audio/song1.mp3',
-                caption: '"Our Song" - The melody that reminds me of you every time I hear it.'
-            },
-            {
-                src: 'assets/audio/song2.mp3',
-                caption: '"Forever" - Because that\'s how long I want to love you.'
-            }
+            { src: 'assets/audio/song1.mp3', caption: '"Our Song"' },
+            { src: 'assets/audio/song2.mp3', caption: '"Forever"' }
         ];
 
         songs.forEach(song => {
             const card = document.createElement('div');
             card.className = 'music-card';
             card.innerHTML = `
-                <audio class="music-player" controls>
+                <audio class="music-player" controls playsinline preload="metadata">
                     <source src="${song.src}" type="audio/mpeg">
-                    Your browser does not support the audio element.
                 </audio>
                 <div class="music-caption">${song.caption}</div>
             `;
-
             musicContainer.appendChild(card);
         });
     }
@@ -316,7 +263,7 @@ Eternally yours`
     function loadGames() {
         const gamesContainer = document.querySelector('.games-container');
 
-        const quizHTML = `
+        gamesContainer.innerHTML = `
             <div class="quiz-container">
                 <div class="quiz-question">What's my favorite thing about you?</div>
                 <div class="quiz-options">
@@ -329,27 +276,15 @@ Eternally yours`
             </div>
         `;
 
-        gamesContainer.innerHTML = quizHTML;
-
-        // Quiz functionality
         const quizOptions = document.querySelectorAll('.quiz-option');
         const quizFeedback = document.querySelector('.quiz-feedback');
 
         quizOptions.forEach(option => {
             option.addEventListener('click', function() {
-                const answer = this.dataset.answer;
-                if (answer === 'correct') {
-                    quizFeedback.textContent = 'Correct! You know me so well! ❤️';
-                    quizFeedback.style.color = '#ff6b9d';
-                } else {
-                    quizFeedback.textContent = 'Nice try, but I love everything about you! 💕';
-                    quizFeedback.style.color = '#ffb3c1';
-                }
-
-                // Reset after 3 seconds
-                setTimeout(() => {
-                    quizFeedback.textContent = '';
-                }, 3000);
+                quizFeedback.textContent =
+                    this.dataset.answer === 'correct'
+                        ? 'Correct! You know me so well! ❤️'
+                        : 'Nice try, but I love everything about you! 💕';
             });
         });
     }
@@ -357,12 +292,10 @@ Eternally yours`
     function setupFinalQuestion() {
         finalBtns.forEach(btn => {
             btn.addEventListener('click', function() {
-                const answer = this.id;
-                if (answer === 'yes-updates') {
-                    finalMessage.textContent = 'Wonderful! Our story continues to grow... 💕';
-                } else {
-                    finalMessage.textContent = 'Too bad. Updates already running in the background. Come back in a year. 😉';
-                }
+                finalMessage.textContent =
+                    this.id === 'yes-updates'
+                        ? 'Wonderful! Our story continues to grow... 💕'
+                        : 'Too bad. Updates already running in the background. 😉';
                 finalMessage.classList.remove('hidden');
             });
         });
@@ -377,10 +310,8 @@ document.querySelectorAll('.expand-btn').forEach(button => {
 
         const isOpen = !mediaContainer.classList.contains('hidden');
 
-        // Close all other open items
         document.querySelectorAll('.media-container').forEach(container => {
             container.classList.add('hidden');
-
             const vid = container.querySelector('video');
             if (vid) {
                 vid.pause();
@@ -394,16 +325,12 @@ document.querySelectorAll('.expand-btn').forEach(button => {
 
             if (media.tagName === 'VIDEO') {
                 media.muted = false;
-                media.play();
+                media.play().catch(() => {});
             }
         } else {
             mediaContainer.classList.add('hidden');
             button.textContent = 'View Memory';
-
-            if (media.tagName === 'VIDEO') {
-                media.pause();
-                media.currentTime = 0;
-            }
         }
     });
 });
+```
