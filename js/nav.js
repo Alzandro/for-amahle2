@@ -146,4 +146,32 @@ document.addEventListener('DOMContentLoaded', function() {
             previewElement.classList.remove('hidden');
         }
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const finalBtn = document.getElementById('final-btn');
+
+    const requiredPages = [
+        '/timeline.html',
+        '/compliments.html',
+        '/letters.html',
+        '/songs.html',
+        '/games.html'
+    ];
+
+    const allVisited = requiredPages.every(
+        page => localStorage.getItem('visited-' + page) === 'true'
+    );
+
+    if (allVisited) {
+        finalBtn.classList.remove('locked');
+        finalBtn.querySelector('.btn-icon').textContent = '💍';
+        finalBtn.querySelector('.btn-desc').textContent =
+            'Tap when you’re ready, my love';
+
+        finalBtn.onclick = () => {
+            window.location.href = 'final.html';
+        };
+    }
+});
+
 });

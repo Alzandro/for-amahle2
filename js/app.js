@@ -192,42 +192,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* --------------------------------------------------
-       TIMELINE EXPAND (SAFE)
-    -------------------------------------------------- */
+/* --------------------------------------------------
+TIMELINE EXPAND (MULTI-OPEN SAFE)
+-------------------------------------------------- */
 
-    document.querySelectorAll('.expand-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const item = button.closest('.timeline-item');
-            const mediaContainer = item?.querySelector('.media-container');
-            const media = mediaContainer?.querySelector('img, video');
+document.querySelectorAll('.timeline-item').forEach(item => {
+    const button = item.querySelector('.expand-btn');
+    const mediaContainer = item.querySelector('.media-container');
+    const media = mediaContainer?.querySelector('img, video');
 
-            if (!mediaContainer || !media) return;
+    if (!button || !mediaContainer) return;
 
-            const isOpen = !mediaContainer.classList.contains('hidden');
+    button.addEventListener('click', () => {
+        const isOpen = !mediaContainer.classList.contains('hidden');
 
-            document.querySelectorAll('.media-container').forEach(c => {
-                c.classList.add('hidden');
-                const v = c.querySelector('video');
-                if (v) {
-                    v.pause();
-                    v.currentTime = 0;
-                }
-            });
+        mediaContainer.classList.toggle('hidden');
+        button.textContent = isOpen ? 'View Memory' : 'Hide Memory';
 
+        if (media?.tagName === 'VIDEO') {
             if (!isOpen) {
-                mediaContainer.classList.remove('hidden');
-                button.textContent = 'Hide Memory';
-
-                if (media.tagName === 'VIDEO') {
-                    media.muted = false;
-                    media.play().catch(() => {});
-                }
+                media.play().catch(() => {});
             } else {
-                mediaContainer.classList.add('hidden');
-                button.textContent = 'View Memory';
+                media.pause();
             }
-        });
+        }
     });
+});
+
 
 });
