@@ -161,11 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         safeOn(document.getElementById('show-audio'), 'click', () => {
             closeAll();
-            const preview = document.getElementById('audio-preview');
-            const audio = preview?.querySelector('audio');
-            preview?.classList.toggle('hidden');
-            audio?.play().catch(() => {});
+            document.getElementById('audio-preview')?.classList.toggle('hidden');
         });
+
 
         safeOn(document.getElementById('show-letter'), 'click', () => {
             closeAll();
