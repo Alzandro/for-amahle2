@@ -141,35 +141,22 @@ document.addEventListener('DOMContentLoaded', () => {
     -------------------------------------------------- */
 
     function setupPreview() {
-        const previews = document.querySelectorAll('.preview-content');
+    function toggle(buttonId, previewId) {
+        const btn = document.getElementById(buttonId);
+        const preview = document.getElementById(previewId);
 
-        function closeAll() {
-            previews.forEach(p => {
-                p.classList.add('hidden');
-                const audio = p.querySelector('audio');
-                if (audio) {
-                    audio.pause();
-                    audio.currentTime = 0;
-                }
-            });
-        }
+        if (!btn || !preview) return;
 
-        safeOn(document.getElementById('show-photo'), 'click', () => {
-            closeAll();
-            document.getElementById('photo-preview')?.classList.toggle('hidden');
-        });
-
-        safeOn(document.getElementById('show-audio'), 'click', () => {
-            closeAll();
-            document.getElementById('audio-preview')?.classList.toggle('hidden');
-        });
-
-
-        safeOn(document.getElementById('show-letter'), 'click', () => {
-            closeAll();
-            document.getElementById('letter-preview')?.classList.toggle('hidden');
+        btn.addEventListener('click', () => {
+            preview.classList.toggle('hidden');
         });
     }
+
+    toggle('show-photo', 'photo-preview');
+    toggle('show-audio', 'audio-preview');
+    toggle('show-letter', 'letter-preview');
+}
+
 
     /* --------------------------------------------------
        NAVIGATION
