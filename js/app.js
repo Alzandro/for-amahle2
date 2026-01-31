@@ -6,7 +6,7 @@ const DEV_MODE = false; // 🔧 set to false before final Valentine deploy
 document.addEventListener('DOMContentLoaded', () => {
 
     /* --------------------------------------------------
-       HELPERS
+    HELPERS
     -------------------------------------------------- */
 
     function safeOn(el, event, handler) {
@@ -14,14 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* --------------------------------------------------
-       CONFIG
+    CONFIG
     -------------------------------------------------- */
 
     const PASSPHRASE = "18ALZ_XO_@Mahl3!25";
     const VALENTINE_DATE = new Date('2026-02-14T00:00:00+02:00');
 
     /* --------------------------------------------------
-       DOM ELEMENTS
+    DOM ELEMENTS
     -------------------------------------------------- */
 
     const gate = document.getElementById('gate');
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const finalMessage = document.getElementById('final-message');
 
     /* --------------------------------------------------
-       INIT
+    INIT
     -------------------------------------------------- */
 
     initApp();
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* --------------------------------------------------
-       PASSPHRASE GATE
+    PASSPHRASE GATE
     -------------------------------------------------- */
 
     function setupPassphraseGate() {
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* --------------------------------------------------
-       COUNTDOWN / APP ENTRY
+    COUNTDOWN / APP ENTRY
     -------------------------------------------------- */
 
     function showApp() {
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* --------------------------------------------------
-       PREVIEWS
+    PREVIEWS
     -------------------------------------------------- */
 
     function setupPreview() {
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* --------------------------------------------------
-       NAVIGATION
+    NAVIGATION
     -------------------------------------------------- */
 
     safeOn(beginBtn, 'click', () => {
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 /* --------------------------------------------------
-TIMELINE EXPAND (MULTI-OPEN SAFE)
+TIMELINE EXPAND (MULTI-OPEN + AUTO-MUTE OTHERS)
 -------------------------------------------------- */
 
 document.querySelectorAll('.timeline-item').forEach(item => {
@@ -206,16 +206,74 @@ document.querySelectorAll('.timeline-item').forEach(item => {
     button.addEventListener('click', () => {
         const isOpen = !mediaContainer.classList.contains('hidden');
 
+        // Toggle visibility
         mediaContainer.classList.toggle('hidden');
+        item.classList.toggle('open', !isOpen);
         button.textContent = isOpen ? 'View Memory' : 'Hide Memory';
 
+        // Handle video logic
         if (media?.tagName === 'VIDEO') {
+
+            // Pause & mute ALL other videos
+            document.querySelectorAll('video').forEach(v => {
+                if (v !== media) {
+                    v.pause();
+                    v.muted = true;
+                }
+            });
+
             if (!isOpen) {
+                media.muted = false;
                 media.play().catch(() => {});
             } else {
                 media.pause();
             }
         }
+    });
+});
+
+/* --------------------------------------------------
+THEME TOGGLE (LIGHT / DARK / SYSTEM)
+-------------------------------------------------- */
+
+const themeButtons = document.querySelectorAll('.theme-toggle button');
+const savedTheme = localStorage.getItem('theme');
+
+/* Apply theme */
+function applyTheme(theme) {
+    document.body.classList.remove('light', 'dark');
+
+    if (theme === 'dark') {
+        document.body.classList.add('dark');
+    } else if (theme === 'light') {
+        document.body.classList.add('light');
+    } else {
+        // SYSTEM
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.body.classList.add(prefersDark ? 'dark' : 'light');
+    }
+
+    themeButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === theme);
+    });
+}
+
+/* Load saved preference */
+applyTheme(savedTheme || 'system');
+
+/* Listen for system changes */
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (localStorage.getItem('theme') === 'system') {
+        applyTheme('system');
+    }
+});
+
+/* Button clicks */
+themeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const theme = btn.dataset.theme;
+        localStorage.setItem('theme', theme);
+        applyTheme(theme);
     });
 });
 

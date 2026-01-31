@@ -360,39 +360,46 @@ body {
 }
 */
 
+/* =========================
+LETTER / PAPER (GLOBAL)
+========================= */
+
 .paper {
-    background: #fdf6e3; /* warm paper tone */
-    padding: 30px 24px;
-    max-width: 600px;
-    margin: 20px auto;
-    border-radius: 6px;
+    background: #fdf6e3; /* real paper tone */
+    padding: 32px 28px;
+    max-width: 640px;
+    margin: 24px auto;
+    border-radius: 8px;
 
-    /* Paper texture illusion */
+    /* Paper depth */
     box-shadow:
-        0 1px 0 rgba(0,0,0,0.08),
-        0 4px 12px rgba(0,0,0,0.12);
+        0 2px 4px rgba(0,0,0,0.12),
+        0 12px 30px rgba(0,0,0,0.18);
 
-    /* Subtle paper grain */
+    /* Paper grain */
     background-image:
         linear-gradient(
-            rgba(0,0,0,0.02) 1px,
+            rgba(0,0,0,0.025) 1px,
             transparent 1px
         );
-    background-size: 100% 24px;
+    background-size: 100% 26px;
+
+    position: relative;
 }
 
 /* Handwritten feel */
 .letter-content p {
     font-family: "Georgia", "Times New Roman", serif;
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: #3b2f2f;
-    margin-bottom: 16px;
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: #2f2623; /* darker ink */
+    margin-bottom: 18px;
+
 }
 
 /* Signature styling */
 .letter-content p:last-child {
-    margin-top: 30px;
+    margin-top: 36px;
     font-style: italic;
 }
 
@@ -616,9 +623,100 @@ TIMELINE POLISH & POP
     width: 100%;
     border-radius: 14px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    will-change: transform, opacity;
+    transform: translateZ(0);   
 }
 
 video.timeline-media {
     max-height: 420px;
     background: black;
+}
+
+
+/* 🌸 Soft Heart Glow Effect */
+.timeline-item.open {
+    box-shadow:
+        0 0 0 2px rgba(255, 107, 157, 0.35),
+        0 0 25px rgba(255, 107, 157, 0.45),
+        0 0 45px rgba(255, 179, 179, 0.35);
+    transform: translateY(-4px) scale(1.01);
+    transition: all 0.4s ease;
+}
+
+/* Subtle floating glow animation */
+@keyframes heartGlow {
+    0% { box-shadow: 0 0 20px rgba(255, 107, 157, 0.35); }
+    50% { box-shadow: 0 0 35px rgba(255, 107, 157, 0.55); }
+    100% { box-shadow: 0 0 20px rgba(255, 107, 157, 0.35); }
+}
+
+.timeline-item.open {
+    animation: heartGlow 3.5s ease-in-out infinite;
+}
+
+
+/* For DARK and LIGHT mode */
+body {
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+body.dark {
+    background: radial-gradient(circle at top, #1a1a1a, #0b0b0b);
+    color: #f5f5f5;
+}
+
+body.dark .timeline-item,
+body.dark .gate-container,
+body.dark .welcome-container,
+body.dark .countdown-container,
+body.dark .preview-content,
+body.dark .nav-container {
+    background: rgba(20, 20, 20, 0.95);
+    box-shadow: 0 0 30px rgba(255, 107, 157, 0.25);
+}
+
+body.dark .caption,
+body.dark .preview-caption,
+body.dark .waiting-message,
+body.dark .nav-subtitle {
+    color: #ccc;
+}
+
+body.dark .paper {
+    background: #1f1b17;
+    color: #e6dcd1;
+}
+
+body.light {
+    background: linear-gradient(135deg, #ffe6e6 0%, #ffb3b3 100%);
+    color: #333;
+}
+
+
+.theme-toggle {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.theme-toggle button {
+    padding: 10px 16px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff6b9d, #ffb3b3);
+    color: white;
+    box-shadow: 0 6px 14px rgba(255, 107, 157, 0.35);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.theme-toggle button:hover {
+    transform: translateY(-2px);
+}
+
+.theme-toggle button.active {
+    opacity: 0.65;
+    filter: grayscale(0.3);
 }
