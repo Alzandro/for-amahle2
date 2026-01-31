@@ -89,17 +89,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkDate() {
-        const now = new Date();
-        const nowSAST = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Johannesburg" }));
+    const now = new Date();
+    const nowSAST = new Date(
+        now.toLocaleString("en-US", { timeZone: "Africa/Johannesburg" })
+    );
 
-        if (DEV_MODE || nowSAST >= VALENTINE_DATE) {
-            countdown?.classList.add('hidden');
-            app?.classList.remove('hidden');
-        } else {
-            countdown?.classList.remove('hidden');
-            startCountdown();
-        }
+    const params = new URLSearchParams(window.location.search);
+    const devUnlock = params.get("dev") === "true";
+
+    if (DEV_MODE || devUnlock || nowSAST >= VALENTINE_DATE) {
+        countdown?.classList.add('hidden');
+        app?.classList.remove('hidden');
+    } else {
+        countdown?.classList.remove('hidden');
+        startCountdown();
     }
+}
+
 
     function startCountdown() {
         function update() {
