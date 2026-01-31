@@ -720,3 +720,99 @@ body.light {
     opacity: 0.65;
     filter: grayscale(0.3);
 }
+
+
+/* =========================
+COMPLIMENTS PAGE
+========================= */
+
+.compliments-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.compliments-title {
+    text-align: center;
+    font-size: 2.6rem;
+    color: #d63384;
+    margin-bottom: 40px;
+}
+
+.compliments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+/* CARD */
+.compliment-card {
+    background: linear-gradient(145deg, #fff, #ffe6ee);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 12px 28px rgba(214, 51, 132, 0.22);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.compliment-card.open {
+    animation: heartGlow 3.5s ease-in-out infinite;
+}
+
+.compliment-card:hover {
+    transform: translateY(-6px);
+}
+
+/* BUTTON */
+.compliment-toggle {
+    width: 100%;
+    padding: 14px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(135deg, #d63384, #ff6b9d);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.compliment-toggle:active {
+    transform: scale(0.97);
+}
+
+/* TEXT */
+.compliment-caption {
+    font-size: 0.95rem;
+    color: #5a3a3a;
+    margin-bottom: 14px;
+}
+
+/* MEDIA */
+.compliment-media {
+    opacity: 0;
+    transform: scale(0.96);
+    transition: all 0.35s ease;
+}
+
+.compliment-media:not(.hidden) {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.compliment-img,
+.compliment-video {
+    width: 100%;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    margin-top: 12px;
+}
+
+/* DARK MODE */
+body.dark .compliment-card {
+    background: rgba(20,20,20,0.95);
+}
+
+body.dark .compliment-caption {
+    color: #ccc;
+}
