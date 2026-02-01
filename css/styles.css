@@ -21,6 +21,8 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
+    position: fixed;
+    inset: 0;
 }
 
 /* Passphrase Gate */
@@ -86,6 +88,8 @@ body {
 
 .hidden {
     display: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* Countdown Screen */
@@ -815,4 +819,10 @@ body.dark .compliment-card {
 
 body.dark .compliment-caption {
     color: #ccc;
+}
+
+audio {
+    pointer-events: auto;
+    z-index: 5;
+    position: relative;
 }
