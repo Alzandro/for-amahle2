@@ -285,3 +285,15 @@ themeButtons.forEach(btn => {
 
 
 });
+
+
+document.addEventListener('play', e => {
+    if (e.target.tagName !== 'VIDEO') return;
+
+    document.querySelectorAll('video').forEach(video => {
+        if (video !== e.target) {
+            video.pause();
+            video.currentTime = 0;
+        }
+    });
+}, true);
