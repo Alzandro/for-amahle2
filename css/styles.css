@@ -21,9 +21,9 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    position: fixed;
-    inset: 0;
+    position: relative; /* ✅ allow normal flow */
 }
+
 
 /* Passphrase Gate */
 .gate-container {
@@ -332,6 +332,13 @@ body {
     padding: 20px;
     margin-top: 10px;
     animation: fadeIn 0.5s ease-in;
+    position: relative; /* reset if it got fixed */
+    z-index: auto;      /* reset any overlay */
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: none;
+    overflow: visible;
 }
 
 .preview-image {
@@ -353,6 +360,9 @@ body {
 .preview-audio {
     width: 100%;
     max-width: 300px;
+    pointer-events: auto; /* ✅ allow clicks */
+    position: relative;
+    z-index: 10; /* bring it above other elements */
 }
 
 /*

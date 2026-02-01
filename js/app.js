@@ -155,6 +155,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         btn.addEventListener('click', () => {
             preview.classList.toggle('hidden');
+
+            // reset any stuck styles
+            preview.style.position = 'relative';
+            preview.style.zIndex = 'auto';
+            preview.style.maxHeight = '';
         });
     }
 
@@ -297,3 +302,5 @@ document.addEventListener('play', e => {
         }
     });
 }, true);
+
+
