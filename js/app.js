@@ -158,8 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // reset any stuck styles
             preview.style.position = 'relative';
-            preview.style.zIndex = 'auto';
-            preview.style.maxHeight = '';
+            preview.style.zIndex = '20';
+            preview.style.overflow = 'visible';
         });
     }
 

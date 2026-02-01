@@ -341,6 +341,14 @@ body {
     overflow: visible;
 }
 
+.preview-content,
+.preview-audio {
+    position: relative;   /* bring it out of fixed overlays */
+    z-index: 20;          /* higher than other overlays */
+    pointer-events: auto; /* allow interaction */
+}
+
+
 .preview-image {
     max-width: 100%;
     height: auto;
@@ -479,7 +487,7 @@ LETTER / PAPER (GLOBAL)
 
 .media-container {
     margin-top: 12px;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .media-container {
