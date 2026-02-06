@@ -304,3 +304,13 @@ document.addEventListener('play', e => {
 }, true);
 
 
+// Love letters toggle
+document.addEventListener("DOMContentLoaded", () => {
+    const envelopes = document.querySelectorAll(".envelope");
+
+    envelopes.forEach(env => {
+        env.addEventListener("click", () => {
+            env.classList.toggle("open");
+        });
+    });
+});

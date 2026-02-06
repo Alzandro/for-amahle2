@@ -844,3 +844,86 @@ audio {
     z-index: 5;
     position: relative;
 }
+
+
+/* =====================
+LOVE LETTERS
+===================== */
+
+.letters {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: grid;
+    gap: 2rem;
+    font-family: 'Dancing Script', cursive;
+    color: var(--ink);
+}
+
+.envelope {
+    position: relative;
+    height: 180px;
+    background: var(--envelope);
+    border: 2px solid var(--envelope-border);
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px var(--shadow);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.envelope:hover {
+    transform: translateY(-4px);
+}
+
+/* Envelope flap */
+.envelope::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--envelope);
+    clip-path: polygon(0 0, 50% 55%, 100% 0);
+    border-bottom: 2px solid var(--envelope-border);
+    transform-origin: top;
+    transition: transform 0.6s ease;
+    z-index: 3;
+}
+
+/* Letter paper */
+.letter {
+    position: absolute;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    background: var(--paper);
+    padding: 1.2rem 1.4rem;
+    border-radius: 4px;
+    box-shadow: 0 6px 15px var(--shadow);
+    line-height: 1.6;
+    font-size: 1.2rem;
+    transition: bottom 0.7s ease;
+
+    background-image:
+        linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 100% 28px;
+}
+
+.envelope.open::before {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .letter {
+    bottom: 10px;
+}
+
+.letter h3 {
+    margin-top: 0;
+    font-weight: 600;
+}
+
+.hint {
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
