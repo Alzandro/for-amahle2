@@ -243,52 +243,6 @@ document.querySelectorAll('.timeline-item').forEach(item => {
     });
 });
 
-/* --------------------------------------------------
-THEME TOGGLE (LIGHT / DARK / SYSTEM)
--------------------------------------------------- */
-
-const themeButtons = document.querySelectorAll('.theme-toggle button');
-const savedTheme = localStorage.getItem('theme');
-
-/* Apply theme */
-function applyTheme(theme) {
-    document.body.classList.remove('light', 'dark');
-
-    if (theme === 'dark') {
-        document.body.classList.add('dark');
-    } else if (theme === 'light') {
-        document.body.classList.add('light');
-    } else {
-        // SYSTEM
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.body.classList.add(prefersDark ? 'dark' : 'light');
-    }
-
-    themeButtons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.theme === theme);
-    });
-}
-
-/* Load saved preference */
-applyTheme(savedTheme || 'system');
-
-/* Listen for system changes */
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    if (localStorage.getItem('theme') === 'system') {
-        applyTheme('system');
-    }
-});
-
-/* Button clicks */
-themeButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const theme = btn.dataset.theme;
-        localStorage.setItem('theme', theme);
-        applyTheme(theme);
-    });
-});
-
-
 });
 
 
@@ -310,7 +264,88 @@ document.addEventListener("DOMContentLoaded", () => {
 
     envelopes.forEach(env => {
         env.addEventListener("click", () => {
-            env.classList.toggle("open");
+            const isOpen = env.classList.contains("open");
+            envelopes.forEach(e => e.classList.remove("open"));
+            if (!isOpen) env.classList.add("open");
+        });
+    });
+});
+
+// Songs page controls (play/pause, progress, single-track playback)
+document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".song-card, .preview-audio-card");
+    if (!cards.length) return;
+
+    function formatTime(seconds) {
+        if (!Number.isFinite(seconds)) return "0:00";
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return `${m}:${String(s).padStart(2, "0")}`;
+    }
+
+    function pauseOthers(current) {
+        cards.forEach(card => {
+            if (card === current) return;
+            const audio = card.querySelector("audio");
+            const playBtn = card.querySelector(".song-play, .preview-play");
+            if (audio && !audio.paused) {
+                audio.pause();
+            }
+            card.classList.remove("playing");
+            if (playBtn) playBtn.textContent = "Play";
+        });
+    }
+
+    cards.forEach(card => {
+        const audio = card.querySelector("audio");
+        const playBtn = card.querySelector(".song-play, .preview-play");
+        const range = card.querySelector(".song-range");
+        const time = card.querySelector(".song-time");
+
+        if (!audio || !playBtn || !range || !time) return;
+
+        function updateTime() {
+            const duration = audio.duration || 0;
+            const current = audio.currentTime || 0;
+            const value = duration ? Math.round((current / duration) * 1000) : 0;
+            range.value = String(value);
+            time.textContent = `${formatTime(current)} / ${formatTime(duration)}`;
+        }
+
+        playBtn.addEventListener("click", () => {
+            if (audio.paused) {
+                pauseOthers(card);
+                audio.play().catch(() => {});
+            } else {
+                audio.pause();
+            }
+        });
+
+        audio.addEventListener("play", () => {
+            card.classList.add("playing");
+            playBtn.textContent = "Pause";
+        });
+
+        audio.addEventListener("pause", () => {
+            card.classList.remove("playing");
+            playBtn.textContent = "Play";
+        });
+
+        audio.addEventListener("ended", () => {
+            card.classList.remove("playing");
+            playBtn.textContent = "Play";
+            audio.currentTime = 0;
+            updateTime();
+        });
+
+        audio.addEventListener("loadedmetadata", updateTime);
+        audio.addEventListener("timeupdate", updateTime);
+
+        range.addEventListener("input", () => {
+            const duration = audio.duration || 0;
+            if (!duration) return;
+            const value = Number(range.value) / 1000;
+            audio.currentTime = duration * value;
         });
     });
 });

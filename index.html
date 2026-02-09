@@ -68,18 +68,29 @@
                 <button id="show-audio" class="preview-btn">Listen to Our Song</button>
 
                     <div id="audio-preview" class="preview-content hidden">
-                        <audio
-                        id="love-audio"
-                        class="preview-audio"
-                        controls
-                        playsinline
-                        preload="metadata"
-                        >
-                        <source src="assets/audio/Alicia_Keys_Unthinkable.mp3" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
+                        <div class="preview-audio-card">
+                            <div class="preview-audio-top">
+                                <div class="preview-audio-title">Our Song</div>
+                                <button class="preview-play" type="button">Play</button>
+                            </div>
 
-                        <p class="preview-caption">Our special melody...</p>
+                            <div class="wave" aria-hidden="true">
+                                <span></span><span></span><span></span><span></span><span></span><span></span>
+                                <span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+
+                            <div class="song-controls">
+                                <input class="song-range" type="range" min="0" max="1000" value="0" step="1" aria-label="Song progress">
+                                <div class="song-time">0:00 / 0:00</div>
+                            </div>
+
+                            <p class="preview-caption">Our special melody...</p>
+
+                            <audio id="love-audio" preload="metadata" playsinline>
+                                <source src="assets/audio/Alicia_Keys_Unthinkable.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
                         </div>
                     </div>
 

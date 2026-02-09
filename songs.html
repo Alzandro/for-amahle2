@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Songs</title>
+
+    <!-- Global + Site Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button data-theme="light">☀️ Light</button>
+        <button data-theme="dark">🌙 Dark</button>
+        <button data-theme="system">🖥️ System</button>
+    </div>
+
+    <!-- Songs -->
+    <section class="songs">
+        <header class="songs-header">
+            <h1>Our Songs</h1>
+            <p>Each track holds a piece of how I feel about you.</p>
+        </header>
+
+        <div class="songs-grid">
+            <article class="song-card">
+                <div class="song-top">
+                    <div class="song-title">
+                        <h2>As You Are</h2>
+                        <span>The Weeknd</span>
+                    </div>
+                    <button class="song-play" type="button">Play</button>
+                </div>
+
+                <div class="wave" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+
+                <div class="song-controls">
+                    <input class="song-range" type="range" min="0" max="1000" value="0" step="1" aria-label="Song progress">
+                    <div class="song-time">0:00 / 0:00</div>
+                </div>
+
+                <p class="song-caption">
+                    This song is more than me just saying I love you — it's about loving you exactly as you are, in every way.
+                </p>
+
+                <audio preload="metadata" src="assets/audio/As_You_Are_The_Weeknd.mp3"></audio>
+            </article>
+
+            <article class="song-card">
+                <div class="song-top">
+                    <div class="song-title">
+                        <h2>Dangerously In Love</h2>
+                        <span>Beyonce</span>
+                    </div>
+                    <button class="song-play" type="button">Play</button>
+                </div>
+
+                <div class="wave" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+
+                <div class="song-controls">
+                    <input class="song-range" type="range" min="0" max="1000" value="0" step="1" aria-label="Song progress">
+                    <div class="song-time">0:00 / 0:00</div>
+                </div>
+
+                <p class="song-caption">
+                    Every chorus sounds like a promise I want to keep for you.
+                </p>
+
+                <audio preload="metadata" src="assets/audio/Beyoncé_Dangerously_In_Love.mp3"></audio>
+            </article>
+
+            <article class="song-card">
+                <div class="song-top">
+                    <div class="song-title">
+                        <h2>Thinking About You</h2>
+                        <span>Frank Ocean</span>
+                    </div>
+                    <button class="song-play" type="button">Play</button>
+                </div>
+
+                <div class="wave" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+
+                <div class="song-controls">
+                    <input class="song-range" type="range" min="0" max="1000" value="0" step="1" aria-label="Song progress">
+                    <div class="song-time">0:00 / 0:00</div>
+                </div>
+
+                <p class="song-caption">
+                    It plays in my head on repeat, just like how I can't stop thinking about you.
+                </p>
+
+                <audio preload="metadata" src="assets/audio/Thinking_About_You_Frank_Ocean.mp3"></audio>
+            </article>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/theme.js" defer></script>
+
+</body>
+</html>
