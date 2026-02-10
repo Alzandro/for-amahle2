@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Memory</title>
+
+    <div class="theme-toggle">
+        <button data-theme="light">☀️ Light</button>
+        <button data-theme="dark">🌙 Dark</button>
+        <button data-theme="system">🖥 System</button>
+    </div>
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/global.css">
+</head>
+<body>
+    <main class="game-page">
+        <a class="back-link" href="../games.html">← Back to Games</a>
+        <h1 class="game-title">Guess the Memory</h1>
+        <p class="game-subtitle">A little stroll through our moments. One question at a time.</p>
+
+        <section class="game-panel memory-panel">
+            <div class="memory-progress" aria-live="polite">
+                <span id="memory-progress">1/1</span>
+            </div>
+
+            <div id="memory-card" class="memory-card">
+                <h2 id="memory-question"></h2>
+                <div id="memory-options" class="memory-options"></div>
+                <p id="memory-feedback" class="memory-feedback" aria-live="polite"></p>
+                <button id="memory-next" class="game-btn hidden" type="button">Next</button>
+            </div>
+
+            <div id="memory-end" class="memory-end hidden">
+                <p class="memory-end-text">Every memory with you is my favorite.</p>
+                <button id="memory-restart" class="game-btn" type="button">Play Again</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/memory-game.js"></script>
+    <script src="../js/theme.js" defer></script>
+</body>
+</html>

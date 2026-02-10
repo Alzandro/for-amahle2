@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playful Games</title>
+
+    <div class="theme-toggle">
+        <button data-theme="light">☀️ Light</button>
+        <button data-theme="dark">🌙 Dark</button>
+        <button data-theme="system">🖥 System</button>
+    </div>
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+    <main class="games-hub">
+        <header class="games-hub-header">
+            <h1>Playful Games</h1>
+            <p>Pick a little moment of love and let’s play.</p>
+        </header>
+
+        <section class="games-grid" aria-label="Games">
+            <a class="game-card" href="games/tictactoe.html">
+                <span class="game-emoji">❤️</span>
+                <h2 class="game-title">Tic-Tac-Toe of Love</h2>
+                <p class="game-desc">Sweet symbols, cozy turns, and a gentle challenge.</p>
+                <span class="game-cta">Play now</span>
+            </a>
+
+            <a class="game-card" href="games/memory-game.html">
+                <span class="game-emoji">🌸</span>
+                <h2 class="game-title">Guess the Memory</h2>
+                <p class="game-desc">Little questions about us, one warm moment at a time.</p>
+                <span class="game-cta">Play now</span>
+            </a>
+
+            <a class="game-card" href="games/tap-love.html">
+                <span class="game-emoji">💗</span>
+                <h2 class="game-title">Tap to Feel Loved</h2>
+                <p class="game-desc">Tap the heart and collect comforting words.</p>
+                <span class="game-cta">Play now</span>
+            </a>
+        </section>
+
+        <div class="games-hub-footer">
+            <a class="back-link" href="nav.html">← Back to Navigation</a>
+        </div>
+    </main>
+
+    <script src="js/theme.js" defer></script>
+    <script>
+    localStorage.setItem('visited-' + location.pathname, 'true');
+    </script>
+</body>
+</html>
