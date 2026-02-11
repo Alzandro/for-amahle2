@@ -8,24 +8,24 @@ const questions = [
         wrongMessage: 'Aww, sweet guess. I’ll tell you after this one.'
     },
     {
-        question: 'What song always makes me think of you?',
-        options: ['The one we played on repeat', 'The first dance song', 'Our road-trip anthem'],
-        answer: 0,
-        correctMessage: 'Exactly. That song is pure us.',
-        wrongMessage: 'Close! But our real song still melts me most.'
+        question: 'What is the first movie did we watched together ',
+        options: ['Avatar Fire & Ash', 'Predator Badlands', 'Now you see me 3'],
+        answer: 2,
+        correctMessage: 'Exactly. That movie honestly brought us closer and more connected.',
+        wrongMessage: 'Close! Don’t worry I know you knew the answer.'
     },
     {
         question: 'Which little thing of yours do I adore the most?',
         options: ['Your laugh', 'Your smile', 'Your hugs'],
-        answer: 1,
-        correctMessage: 'Yes, your smile lights up everything.',
-        wrongMessage: 'All of them, honestly. But your smile wins today.'
+        answer: 3,
+        correctMessage: 'Yes, your hugs gives me warmth, security and that missing love I been yearning for.',
+        wrongMessage: 'All of them, honestly. But your Hugs wins today.'
     },
     {
         question: 'Our sweetest habit together is...',
         options: ['Checking in before bed', 'Sending surprise selfies', 'Dreaming about future trips'],
         answer: 0,
-        correctMessage: 'Always. Falling asleep close to you feels perfect.',
+        correctMessage: 'Always. Falling asleep close to you feels perfect even through the phone.',
         wrongMessage: 'That’s such a cute answer too. I still love our bedtime check-ins most.'
     },
     {
@@ -34,6 +34,22 @@ const questions = [
         answer: 2,
         correctMessage: 'Yes, all of it for you.',
         wrongMessage: 'The truth is all of it, always.'
+    },
+
+    {
+        question: 'What’s the one thing I want to do with you the most?',
+        options: ['Travel the world together', 'Build a cozy home', 'Grow old together'],
+        answer: 2,
+        correctMessage: 'Exactly. Growing old with you is my dream.',
+        wrongMessage: 'All of those are true, but growing old together is the one I want most.'
+    },
+
+    {
+        question: 'What’s the one thing I enjoy doing with you most?',
+        options: ['Smoking together', 'Sharing our interests, passions and lives together', 'Just being with you'],
+        answer: 3,
+        correctMessage: 'Yes, just being with you is my favorite thing.',
+        wrongMessage: 'All of those are wonderful and perfect, but just being with you is what I cherish most.'
     }
 ];
 
