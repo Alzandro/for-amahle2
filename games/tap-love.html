@@ -16,7 +16,10 @@
 </head>
 <body>
     <main class="game-page">
-        <a class="back-link" href="../games.html">← Back to Games</a>
+        <div class="page-return">
+            <a class="return-home-btn" href="../nav.html">← Back to Home</a>
+            <a class="return-games-btn" href="../games.html">← Back to Games</a>
+        </div>
         <h1 class="game-title">Tap to Feel Loved</h1>
         <p class="game-subtitle">Tap the heart whenever you need a little warmth.</p>
 
@@ -26,7 +29,7 @@
             </button>
 
             <p class="tap-counter">Taps: <span id="tap-count">0</span></p>
-            <p id="tap-message" class="tap-message" aria-live="polite">I’m right here, always.</p>
+            <p id="tap-message" class="tap-message" aria-live="polite">I'm right here, always.</p>
 
             <div class="game-actions">
                 <button id="tap-reset" class="game-btn" type="button">Reset</button>
@@ -36,5 +39,8 @@
 
     <script src="../js/tap-love.js"></script>
     <script src="../js/theme.js" defer></script>
+    <script>
+    localStorage.setItem('visited-' + location.pathname, 'true');
+    </script>
 </body>
 </html>

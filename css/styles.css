@@ -1392,6 +1392,51 @@ GAMES HUB + GAME PAGES
     text-decoration: underline;
 }
 
+/* Shared return buttons */
+.page-return {
+    margin: 18px auto 0;
+    padding: 0 20px;
+    max-width: 1100px;
+}
+
+.return-home-btn,
+.return-games-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+    background-color: #ffb6c1;
+    color: #fff;
+}
+
+body.light .return-home-btn,
+body.light .return-games-btn {
+    background-color: #ffb6c1;
+    color: #fff;
+}
+
+body.dark .return-home-btn,
+body.dark .return-games-btn {
+    background-color: #ff4d6d;
+    color: #fff;
+}
+
+.return-home-btn:hover,
+.return-games-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.locked {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
 .game-page {
     max-width: 960px;
     margin: 0 auto;

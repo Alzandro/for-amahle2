@@ -16,7 +16,10 @@
 </head>
 <body>
     <main class="game-page">
-        <a class="back-link" href="../games.html">← Back to Games</a>
+        <div class="page-return">
+            <a class="return-home-btn" href="../nav.html">← Back to Home</a>
+            <a class="return-games-btn" href="../games.html">← Back to Games</a>
+        </div>
         <h1 class="game-title">Guess the Memory</h1>
         <p class="game-subtitle">A little stroll through our moments. One question at a time.</p>
 
@@ -41,5 +44,8 @@
 
     <script src="../js/memory-game.js"></script>
     <script src="../js/theme.js" defer></script>
+    <script>
+    localStorage.setItem('visited-' + location.pathname, 'true');
+    </script>
 </body>
 </html>

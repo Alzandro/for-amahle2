@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Last Question</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/global.css">
+    <style>
+        .final-page {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 34px 20px 70px;
+            text-align: center;
+        }
+
+        .final-card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 24px;
+            padding: 34px 22px;
+            box-shadow: 0 18px 36px rgba(214, 51, 132, 0.22);
+        }
+
+        .final-title {
+            color: #d63384;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .final-subtitle {
+            color: #6b4b4b;
+            margin-bottom: 26px;
+            font-size: 1.05rem;
+        }
+
+        .final-actions {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .final-btn {
+            border: none;
+            border-radius: 25px;
+            padding: 10px 28px;
+            font-weight: 700;
+            cursor: pointer;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .final-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light .final-btn {
+            background-color: #ffb6c1;
+        }
+
+        body.dark .final-btn {
+            background-color: #ff4d6d;
+        }
+
+        .final-response {
+            min-height: 64px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            color: #4b2a2a;
+            line-height: 1.6;
+        }
+
+        .final-response.show {
+            opacity: 1;
+        }
+
+        body.dark .final-card {
+            background: rgba(20, 20, 20, 0.95);
+            box-shadow: 0 0 30px rgba(255, 107, 157, 0.25);
+        }
+
+        body.dark .final-subtitle,
+        body.dark .final-response {
+            color: #e8d7d7;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button data-theme="light">☀️ Light</button>
+        <button data-theme="dark">🌙 Dark</button>
+        <button data-theme="system">🖥 System</button>
+    </div>
+
+    <div class="page-return">
+        <a href="nav.html" class="return-home-btn">← Back to Home</a>
+    </div>
+
+    <main class="final-page">
+        <section class="final-card">
+            <h1 class="final-title">Should I continue building your website?</h1>
+            <p class="final-subtitle">Pick your answer, my love.</p>
+
+            <div class="final-actions">
+                <button id="final-yes" class="final-btn" type="button">YES</button>
+                <button id="final-no" class="final-btn" type="button">NO</button>
+            </div>
+
+            <p id="final-response" class="final-response" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <script src="js/theme.js" defer></script>
+    <script>
+    const finalResponse = document.getElementById("final-response");
+    const yesButton = document.getElementById("final-yes");
+    const noButton = document.getElementById("final-no");
+
+    const yesText = "I for sure will. Come back a year later for the update, but you can still view and reminisce. It is yours.";
+    const noText = "Shame that's unfortunate… for you, not for me. I'm updating the website. Come back in a year's time and use it whenever you need. It is always yours to come back to.";
+
+    function showResponse(message) {
+        finalResponse.classList.remove("show");
+        requestAnimationFrame(() => {
+            finalResponse.textContent = message;
+            finalResponse.classList.add("show");
+        });
+    }
+
+    yesButton.addEventListener("click", function() {
+        showResponse(yesText);
+    });
+
+    noButton.addEventListener("click", function() {
+        showResponse(noText);
+    });
+    </script>
+    <script>
+    localStorage.setItem('visited-' + location.pathname, 'true');
+    </script>
+</body>
+</html>

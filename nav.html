@@ -5,17 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Valentine Journey</title>
     <div class="theme-toggle">
-    <button data-theme="light">☀️ Light</button>
-    <button data-theme="dark">🌙 Dark</button>
-    <button data-theme="system">🖥 System</button>
+        <button data-theme="light">☀️ Light</button>
+        <button data-theme="dark">🌙 Dark</button>
+        <button data-theme="system">🖥 System</button>
     </div>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/global.css">
-
-
 </head>
 <body>
-    <!-- Navigation Screen -->
     <div id="nav-screen" class="screen">
         <div class="nav-container">
             <h1 class="nav-title">Choose Your Adventure</h1>
@@ -23,7 +20,7 @@
 
             <div class="nav-buttons">
                 <button class="nav-btn" onclick="window.location.href='timeline.html'">
-                    <div class="btn-icon">📅</div>
+                    <div class="btn-icon">📖</div>
                     <div class="btn-text">Our Timeline</div>
                     <div class="btn-desc">Relive our beautiful memories</div>
                 </button>
@@ -52,11 +49,11 @@
                     <div class="btn-desc">Let's have some fun together</div>
                 </button>
 
-                <button class="nav-btn locked" id="final-btn">
-                <div class="btn-icon">🔒</div>
-                <div class="btn-text">One Last Question</div>
-                <div class="btn-desc">Complete everything to unlock</div>
-            </button>
+                <a class="nav-btn locked" id="final-link" href="final.html">
+                    <div class="btn-icon">🔒</div>
+                    <div class="btn-text">One Last Question</div>
+                    <div class="btn-desc">Complete everything to unlock</div>
+                </a>
             </div>
 
             <div class="nav-footer">
@@ -65,7 +62,34 @@
         </div>
     </div>
 
-    <script src="js/nav.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const requiredPages = [
+            "timeline.html",
+            "compliments.html",
+            "letters.html",
+            "songs.html",
+            "games.html"
+        ];
+
+        const finalLink = document.querySelector('a[href="final.html"]');
+        const allVisited = requiredPages.every(page =>
+            localStorage.getItem("visited-/" + page) === "true"
+        );
+
+        if (!finalLink) return;
+
+        if (!allVisited) {
+            finalLink.classList.add("locked");
+        } else {
+            finalLink.classList.remove("locked");
+            const icon = finalLink.querySelector(".btn-icon");
+            const desc = finalLink.querySelector(".btn-desc");
+            if (icon) icon.textContent = "💍";
+            if (desc) desc.textContent = "Tap when you're ready, my love";
+        }
+    });
+    </script>
     <script src="js/theme.js" defer></script>
 </body>
 </html>

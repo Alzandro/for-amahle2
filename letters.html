@@ -22,6 +22,10 @@
         <button data-theme="system">🖥️ System</button>
     </div>
 
+    <div class="page-return">
+        <a href="nav.html" class="return-home-btn">← Back to Home</a>
+    </div>
+
     <!-- Love Letters -->
     <section class="letters">
 
@@ -191,6 +195,9 @@
     <!-- Scripts -->
     <script src="js/app.js"></script>
     <script src="js/theme.js" defer></script>
+    <script>
+    localStorage.setItem('visited-' + location.pathname, 'true');
+    </script>
 
 </body>
 </html>
